@@ -16,7 +16,7 @@ public class AxisValue {
         setValue(value);
     }
 
-    @Deprecated
+//    @Deprecated
     public AxisValue(float value, char[] label) {
         this.value = value;
         this.label = label;
@@ -51,7 +51,7 @@ public class AxisValue {
         return this;
     }
 
-    @Deprecated
+//    @Deprecated
     public char[] getLabel() {
         return label;
     }
