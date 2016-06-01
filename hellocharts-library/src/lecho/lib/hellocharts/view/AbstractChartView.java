@@ -102,17 +102,17 @@ public abstract class AbstractChartView extends View implements Chart {
 
         if (isInteractive) {
 
-            boolean needInvalidate;
+//            boolean needInvalidate;
 
-            if (isContainerScrollEnabled) {
-                needInvalidate = touchHandler.handleTouchEvent(event, getParent(), containerScrollType);
-            } else {
-                needInvalidate = touchHandler.handleTouchEvent(event);
-            }
-
-            if (needInvalidate) {
-                ViewCompat.postInvalidateOnAnimation(this);
-            }
+//            if (isContainerScrollEnabled) {
+//                needInvalidate = touchHandler.handleTouchEvent(event, getParent(), containerScrollType);
+//            } else {
+//                needInvalidate = touchHandler.handleTouchEvent(event);
+//            }
+//
+//            if (needInvalidate) {
+//                ViewCompat.postInvalidateOnAnimation(this);
+//            }
 
             return true;
         } else {

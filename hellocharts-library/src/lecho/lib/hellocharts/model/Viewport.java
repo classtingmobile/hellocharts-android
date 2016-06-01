@@ -16,7 +16,7 @@ public class Viewport implements Parcelable {
     public float top;
     public float right;
     public float bottom;
-    public static final Parcelable.Creator<Viewport> CREATOR = new Parcelable.Creator<Viewport>() {
+    public static final Creator<Viewport> CREATOR = new Creator<Viewport>() {
         /**
          * Return a new viewport from the data in the specified parcel.
          */

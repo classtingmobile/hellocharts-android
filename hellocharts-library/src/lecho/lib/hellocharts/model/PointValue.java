@@ -1,5 +1,7 @@
 package lecho.lib.hellocharts.model;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.Arrays;
 
 import lecho.lib.hellocharts.view.Chart;
@@ -13,9 +15,11 @@ public class PointValue {
     private float y;
     private float originX;
     private float originY;
+    private float original;
     private float diffX;
     private float diffY;
     private char[] label;
+    private Drawable labelDrawable;
 
     public PointValue() {
         set(0, 0);
@@ -23,6 +27,11 @@ public class PointValue {
 
     public PointValue(float x, float y) {
         set(x, y);
+    }
+
+    public PointValue(float x, float y, float original) {
+        set(x, y);
+        this.original = original;
     }
 
     public PointValue(PointValue pointValue) {
@@ -59,6 +68,10 @@ public class PointValue {
         return this;
     }
 
+    public float getOriginal() {
+        return this.original;
+    }
+
     public float getX() {
         return this.x;
     }
@@ -84,6 +97,15 @@ public class PointValue {
     @Deprecated
     public PointValue setLabel(char[] label) {
         this.label = label;
+        return this;
+    }
+
+    public Drawable getLabelDrawable() {
+        return labelDrawable;
+    }
+
+    public PointValue setLabelDrawable(Drawable drawable) {
+        this.labelDrawable = drawable;
         return this;
     }
 

@@ -2,6 +2,7 @@ package lecho.lib.hellocharts.renderer;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetricsInt;
@@ -169,6 +170,7 @@ public class AxesRenderer {
         namePaintTab[position].setColor(axis.getTextColor());
         namePaintTab[position].setTextSize(ChartUtils.sp2px(scaledDensity, axis.getTextSize()));
         linePaintTab[position].setColor(axis.getLineColor());
+        linePaintTab[position].setStrokeWidth(ChartUtils.dp2px(density, axis.getLineWidth()));
 
         labelTextAscentTab[position] = Math.abs(fontMetricsTab[position].ascent);
         labelTextDescentTab[position] = Math.abs(fontMetricsTab[position].descent);
@@ -561,10 +563,10 @@ public class AxesRenderer {
                 } else {
                     lineX1 = lineX2 = rawValuesTab[position][valueToDrawIndex];
                 }
-                linesDrawBufferTab[position][valueToDrawIndex * 4 + 0] = lineX1;
-                linesDrawBufferTab[position][valueToDrawIndex * 4 + 1] = lineY1;
+                linesDrawBufferTab[position][valueToDrawIndex * 4] = lineX1;
+                linesDrawBufferTab[position][valueToDrawIndex * 4 + 1] = lineY1 - 55;
                 linesDrawBufferTab[position][valueToDrawIndex * 4 + 2] = lineX2;
-                linesDrawBufferTab[position][valueToDrawIndex * 4 + 3] = lineY2;
+                linesDrawBufferTab[position][valueToDrawIndex * 4 + 3] = lineY2 - 55;
             }
             canvas.drawLines(linesDrawBufferTab[position], 0, valueToDrawIndex * 4, linePaintTab[position]);
         }
@@ -598,15 +600,26 @@ public class AxesRenderer {
             }
 
             if (axis.hasTiltedLabels()) {
-                canvas.save();
-                canvas.translate(tiltedLabelXTranslation[position], tiltedLabelYTranslation[position]);
-                canvas.rotate(-45, labelX, labelY);
-                canvas.drawText(labelBuffer, labelBuffer.length - charsNumber, charsNumber, labelX, labelY,
-                        labelPaintTab[position]);
-                canvas.restore();
+                if (valueToDrawIndex == valuesToDrawNumTab[position] - 1) {
+                    Paint paint = labelPaintTab[position];
+                    paint.setColor(Color.parseColor("#757575"));
+                    canvas.drawText(labelBuffer, labelBuffer.length - charsNumber, charsNumber, labelX, labelY,
+                            labelPaintTab[position]);
+                } else {
+                    Paint paint = labelPaintTab[position];
+                    paint.setColor(Color.parseColor("#9E9E9E"));
+                    canvas.drawText(labelBuffer, labelBuffer.length - charsNumber, charsNumber, labelX, labelY,
+                            labelPaintTab[position]);
+                }
             } else {
-                canvas.drawText(labelBuffer, labelBuffer.length - charsNumber, charsNumber, labelX, labelY,
-                        labelPaintTab[position]);
+                AxisValue axisValue = valuesToDrawTab[position][valueToDrawIndex];
+                Paint paint = labelPaintTab[position];
+                paint.setColor(Color.parseColor("#BDBDBD"));
+                if (valueToDrawIndex < valuesToDrawNumTab[position] - 1) {
+                    String value = String.valueOf((int) axisValue.getOriginal());
+                    canvas.drawText(value.toCharArray(), 0, value.toCharArray().length, labelX, labelY - 44,
+                            labelPaintTab[position]);
+                }
             }
         }
 

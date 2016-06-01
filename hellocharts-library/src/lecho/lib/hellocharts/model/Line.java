@@ -21,6 +21,7 @@ public class Line {
     private int color = ChartUtils.DEFAULT_COLOR;
     private int pointColor = UNINITIALIZED;
     private int darkenColor = ChartUtils.DEFAULT_DARKEN_COLOR;
+    private int labelColor = UNINITIALIZED;
     /**
      * Transparency of area when line is filled. *
      */
@@ -31,9 +32,13 @@ public class Line {
     private boolean hasLines = true;
     private boolean hasLabels = false;
     private boolean hasLabelsOnlyForSelected = false;
+    private boolean hasLabelOnlyForLastPoint = false;
     private boolean isCubic = false;
     private boolean isSquare = false;
     private boolean isFilled = false;
+    private boolean isUseFirstPoint = true;
+    private boolean isUseLastPoint = false;
+    private boolean visibleLines = true;
     private ValueShape shape = ValueShape.CIRCLE;
     private PathEffect pathEffect;
     private LineChartValueFormatter formatter = new SimpleLineChartValueFormatter();
@@ -61,6 +66,8 @@ public class Line {
         this.isSquare = line.isSquare;
         this.isCubic = line.isCubic;
         this.isFilled = line.isFilled;
+        this.isUseFirstPoint = line.isUseFirstPoint;
+        this.isUseLastPoint = line.isUseLastPoint;
         this.shape = line.shape;
         this.pathEffect = line.pathEffect;
         this.formatter = line.formatter;
@@ -128,6 +135,18 @@ public class Line {
         return darkenColor;
     }
 
+    public int getLabelColor() {
+        if (labelColor == UNINITIALIZED) {
+            return darkenColor;
+        }
+        return labelColor;
+    }
+
+    public Line setLabelColor(int labelColor) {
+        this.labelColor = labelColor;
+        return this;
+    }
+
     /**
      * @see #setAreaTransparency(int)
      */
@@ -173,6 +192,13 @@ public class Line {
         return this;
     }
 
+    public boolean visibleLines() { return visibleLines; }
+
+    public Line setVisibleLines(boolean visible) {
+        this.visibleLines = visible;
+        return this;
+    }
+
     public boolean hasLabels() {
         return hasLabels;
     }
@@ -181,6 +207,20 @@ public class Line {
         this.hasLabels = hasLabels;
         if (hasLabels) {
             this.hasLabelsOnlyForSelected = false;
+            this.hasLabelOnlyForLastPoint = false;
+        }
+        return this;
+    }
+
+    public boolean hasLabelOnlyLastPoint() {
+        return hasLabelOnlyForLastPoint;
+    }
+
+    public Line setHasLabelOnlyForLastPoint(boolean hasLabelOnlyForLastPoint) {
+        this.hasLabelOnlyForLastPoint = hasLabelOnlyForLastPoint;
+        if (hasLabelOnlyForLastPoint) {
+            this.hasLabelsOnlyForSelected = false;
+            this.hasLabels = false;
         }
         return this;
     }
@@ -200,6 +240,7 @@ public class Line {
         this.hasLabelsOnlyForSelected = hasLabelsOnlyForSelected;
         if (hasLabelsOnlyForSelected) {
             this.hasLabels = false;
+            this.hasLabelOnlyForLastPoint = false;
         }
         return this;
     }
@@ -247,6 +288,20 @@ public class Line {
 
     public Line setFilled(boolean isFilled) {
         this.isFilled = isFilled;
+        return this;
+    }
+
+    public boolean isUseFirstPoint() { return  isUseFirstPoint; }
+
+    public Line setUseFirstPoint(boolean isUseFirstPoint) {
+        this.isUseFirstPoint = isUseFirstPoint;
+        return this;
+    }
+
+    public boolean isUseLastCustomPoint() { return  isUseLastPoint; }
+
+    public Line setUseLastCustomPoint(boolean isUseLastPoint) {
+        this.isUseLastPoint = isUseLastPoint;
         return this;
     }
 

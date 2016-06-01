@@ -22,6 +22,7 @@ import lecho.lib.hellocharts.util.ChartUtils;
 public class Axis {
     public static final int DEFAULT_TEXT_SIZE_SP = 12;
     public static final int DEFAULT_MAX_AXIS_LABEL_CHARS = 3;
+    public static final int DEFAULT_LINE_WIDTH = 1;
     /**
      * Text size for axis labels and name.
      */
@@ -58,6 +59,8 @@ public class Axis {
      * Axis grid lines color.
      */
     private int lineColor = ChartUtils.DEFAULT_DARKEN_COLOR;
+
+    private int lineWidth = DEFAULT_LINE_WIDTH;
     /**
      * Typeface for labels and name text.
      */
@@ -95,6 +98,7 @@ public class Axis {
         this.isInside = axis.isInside;
         this.textColor = axis.textColor;
         this.lineColor = axis.lineColor;
+        this.lineWidth = axis.lineWidth;
         this.textSize = axis.textSize;
         this.maxLabelChars = axis.maxLabelChars;
         this.typeface = axis.typeface;
@@ -230,6 +234,15 @@ public class Axis {
 
     public Axis setLineColor(int lineColor) {
         this.lineColor = lineColor;
+        return this;
+    }
+
+    public int getLineWidth() {
+        return lineWidth;
+    }
+
+    public Axis setLineWidth(int lineWidth) {
+        this.lineWidth = lineWidth;
         return this;
     }
 

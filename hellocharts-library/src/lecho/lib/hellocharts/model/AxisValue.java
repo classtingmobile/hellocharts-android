@@ -9,6 +9,8 @@ import java.util.Arrays;
 public class AxisValue {
     private float value;
     private char[] label;
+    private String name;
+    private float original;
 
     public AxisValue(float value) {
         setValue(value);
@@ -20,9 +22,24 @@ public class AxisValue {
         this.label = label;
     }
 
+    public AxisValue(float value, float original, String label) {
+        this.value = value;
+        this.name = label;
+        this.label = label.toCharArray();
+        this.original = original;
+    }
+
     public AxisValue(AxisValue axisValue) {
         this.value = axisValue.value;
         this.label = axisValue.label;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public float getOriginal() {
+        return original;
     }
 
     public float getValue() {

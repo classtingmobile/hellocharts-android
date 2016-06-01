@@ -64,7 +64,7 @@ public abstract class AbstractChartRenderer implements ChartRenderer {
         labelPaint.setAntiAlias(true);
         labelPaint.setStyle(Paint.Style.FILL);
         labelPaint.setTextAlign(Align.LEFT);
-        labelPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+//        labelPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         labelPaint.setColor(Color.WHITE);
 
         labelBackgroundPaint.setAntiAlias(true);
