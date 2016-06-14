@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.Rect;
 import android.graphics.Shader;
+import android.util.Log;
 
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
@@ -524,6 +525,7 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
     private void drawArea(Canvas canvas, Line line) {
         final int lineSize = line.getValues().size();
+        Log.e("mymy", "darwArea cacacallllll.....");
 
         if (lineSize < 2) {
             //No point to draw area for one point or empty line.
