@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -68,6 +69,7 @@ public abstract class AbstractChartView extends View implements Chart {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.e("mymy", "LineChartView's AbsrtractChartView onMeasure");
     }
 
     @Override
@@ -77,6 +79,7 @@ public abstract class AbstractChartView extends View implements Chart {
                 getPaddingBottom());
         chartRenderer.onChartSizeChanged();
         axesRenderer.onChartSizeChanged();
+        Log.e("mymy", "LineChartView's AbsrtractChartView onSizeChanged");
     }
 
     @Override
@@ -94,6 +97,8 @@ public abstract class AbstractChartView extends View implements Chart {
         } else {
             canvas.drawColor(ChartUtils.DEFAULT_COLOR);
         }
+
+        Log.e("mymy", "LineChartView's AbsrtractChartView onDraw");
     }
 
     @Override

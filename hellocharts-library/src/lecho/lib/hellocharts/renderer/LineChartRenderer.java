@@ -76,6 +76,8 @@ public class LineChartRenderer extends AbstractChartRenderer {
                     Bitmap.Config.ARGB_8888);
             softwareCanvas.setBitmap(softwareBitmap);
         }
+
+        Log.e("mymy", "onChartSizeChanged!");
     }
 
     @Override
@@ -91,6 +93,7 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
     @Override
     public void onChartViewportChanged() {
+        Log.e("mymy", "onChartViewPortChanged!");
         if (isViewportCalculationEnabled) {
             calculateMaxViewport();
             computator.setMaxViewport(tempMaximumViewport);
