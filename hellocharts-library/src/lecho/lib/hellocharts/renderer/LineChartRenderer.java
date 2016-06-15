@@ -93,7 +93,6 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
     @Override
     public void onChartViewportChanged() {
-        Log.e("mymy", "onChartViewPortChanged!");
         if (isViewportCalculationEnabled) {
             calculateMaxViewport();
             computator.setMaxViewport(tempMaximumViewport);
@@ -103,6 +102,7 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
     @Override
     public void draw(Canvas canvas) {
+        Log.e("mymy", "lineCharRenderer draw!!");
         final LineChartData data = dataProvider.getLineChartData();
 
         final Canvas drawCanvas;
@@ -110,19 +110,24 @@ public class LineChartRenderer extends AbstractChartRenderer {
         // softwareBitmap can be null if chart is rendered in layout editor. In that case use default canvas and not
         // softwareCanvas.
         if (null != softwareBitmap) {
+            Log.e("mymy", "1");
             drawCanvas = softwareCanvas;
             drawCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
         } else {
+            Log.e("mymy", "2");
             drawCanvas = canvas;
         }
 
         for (Line line : data.getLines()) {
             if (line.hasLines()) {
+                Log.e("mymy", "hasLines!");
                 if (line.isCubic()) {
+                    Log.e("mymy", "isCubic!");
                     drawSmoothPath(drawCanvas, line);
                 } else if (line.isSquare()) {
                     drawSquarePath(drawCanvas, line);
                 } else {
+                    Log.e("mymy", "just!");
                     drawPath(drawCanvas, line);
                 }
             }
