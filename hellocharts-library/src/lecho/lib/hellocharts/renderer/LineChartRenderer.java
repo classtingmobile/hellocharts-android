@@ -114,13 +114,13 @@ public class LineChartRenderer extends AbstractChartRenderer {
             if (softwareCanvas != null) {
                 softwareCanvas = new Canvas();
                 softwareCanvas.setBitmap(softwareBitmap);
+                softwareCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
             }
 
             drawCanvas = softwareCanvas;
 //            drawCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
         } else {
-            Log.e("mymy", "2");
-            drawCanvas = new Canvas();
+            drawCanvas = canvas;
         }
 
         for (Line line : data.getLines()) {
