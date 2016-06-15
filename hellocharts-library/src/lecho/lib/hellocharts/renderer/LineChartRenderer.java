@@ -111,8 +111,13 @@ public class LineChartRenderer extends AbstractChartRenderer {
         // softwareCanvas.
         if (null != softwareBitmap) {
             Log.e("mymy", "1");
+            if (softwareCanvas != null) {
+                softwareCanvas = new Canvas();
+                softwareCanvas.setBitmap(softwareBitmap);
+            }
+
             drawCanvas = softwareCanvas;
-            drawCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+//            drawCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
         } else {
             Log.e("mymy", "2");
             drawCanvas = new Canvas();
