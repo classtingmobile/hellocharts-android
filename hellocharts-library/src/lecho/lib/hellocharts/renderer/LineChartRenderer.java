@@ -115,7 +115,7 @@ public class LineChartRenderer extends AbstractChartRenderer {
             drawCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
         } else {
             Log.e("mymy", "2");
-            drawCanvas = canvas;
+            drawCanvas = new Canvas();
         }
 
         for (Line line : data.getLines()) {
