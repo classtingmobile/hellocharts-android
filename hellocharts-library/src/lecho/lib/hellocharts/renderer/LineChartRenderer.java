@@ -120,7 +120,7 @@ public class LineChartRenderer extends AbstractChartRenderer {
                 drawCanvas = softwareCanvas;
                 drawCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
             } else {
-                drawCanvas = canvas;
+                return;
             }
         } else {
             drawCanvas = canvas;
