@@ -79,8 +79,6 @@ public class LineChartRenderer extends AbstractChartRenderer {
                     Bitmap.Config.ARGB_8888);
             softwareCanvas.setBitmap(softwareBitmap);
         }
-
-        Log.e("mymy", "onChartSizeChanged!");
     }
 
     @Override
@@ -105,7 +103,6 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
     @Override
     public void draw(Canvas canvas) {
-        Log.e("mymy", "lineCharRenderer draw!!");
         final LineChartData data = dataProvider.getLineChartData();
 
         final Canvas drawCanvas;
@@ -113,8 +110,6 @@ public class LineChartRenderer extends AbstractChartRenderer {
         // softwareBitmap can be null if chart is rendered in layout editor. In that case use default canvas and not
         // softwareCanvas.
         if (null != softwareBitmap) {
-            Log.e("mymy", "1");
-
             if (!initail) {
                 initail = true;
                 drawCanvas = softwareCanvas;
@@ -129,14 +124,11 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
         for (Line line : data.getLines()) {
             if (line.hasLines()) {
-                Log.e("mymy", "hasLines!");
                 if (line.isCubic()) {
-                    Log.e("mymy", "isCubic!");
                     drawSmoothPath(drawCanvas, line);
                 } else if (line.isSquare()) {
                     drawSquarePath(drawCanvas, line);
                 } else {
-                    Log.e("mymy", "just!");
                     drawPath(drawCanvas, line);
                 }
             }
@@ -542,7 +534,6 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
     private void drawArea(Canvas canvas, Line line) {
         final int lineSize = line.getValues().size();
-        Log.e("mymy", "darwArea cacacallllll.....");
 
         if (lineSize < 2) {
             //No point to draw area for one point or empty line.

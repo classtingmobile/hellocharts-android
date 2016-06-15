@@ -69,7 +69,6 @@ public abstract class AbstractChartView extends View implements Chart {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.e("mymy", "LineChartView's AbsrtractChartView onMeasure");
     }
 
     @Override
@@ -79,7 +78,6 @@ public abstract class AbstractChartView extends View implements Chart {
                 getPaddingBottom());
         chartRenderer.onChartSizeChanged();
         axesRenderer.onChartSizeChanged();
-        Log.e("mymy", "LineChartView's AbsrtractChartView onSizeChanged");
     }
 
     @Override
@@ -97,8 +95,6 @@ public abstract class AbstractChartView extends View implements Chart {
         } else {
             canvas.drawColor(ChartUtils.DEFAULT_COLOR);
         }
-
-        Log.e("mymy", "LineChartView's AbsrtractChartView onDraw");
     }
 
     @Override
