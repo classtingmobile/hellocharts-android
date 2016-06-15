@@ -49,6 +49,9 @@ public class LineChartRenderer extends AbstractChartRenderer {
     private Canvas softwareCanvas = new Canvas();
     private Viewport tempMaximumViewport = new Viewport();
 
+    // 임시 처리
+    private boolean initail = false;
+
     public LineChartRenderer(Context context, Chart chart, LineChartDataProvider dataProvider) {
         super(context, chart);
         this.dataProvider = dataProvider;
@@ -111,14 +114,14 @@ public class LineChartRenderer extends AbstractChartRenderer {
         // softwareCanvas.
         if (null != softwareBitmap) {
             Log.e("mymy", "1");
-            if (softwareCanvas != null) {
-                softwareCanvas = new Canvas();
-                softwareCanvas.setBitmap(softwareBitmap);
-                softwareCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
-            }
 
-            drawCanvas = softwareCanvas;
-//            drawCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+            if (!initail) {
+                initail = true;
+                drawCanvas = softwareCanvas;
+                drawCanvas.drawColor(Color.TRANSPARENT, Mode.CLEAR);
+            } else {
+                drawCanvas = canvas;
+            }
         } else {
             drawCanvas = canvas;
         }
