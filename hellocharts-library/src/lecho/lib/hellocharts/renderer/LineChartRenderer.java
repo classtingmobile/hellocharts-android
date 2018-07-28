@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.Rect;
 import android.graphics.Shader;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 
 import lecho.lib.hellocharts.model.Line;
@@ -400,10 +401,10 @@ public class LineChartRenderer extends AbstractChartRenderer {
                 if (MODE_DRAW == mode) {
                     if (line.isUseLastCustomPoint()) {
                         if (i == last) {
-                            drawPoint(canvas, ValueShape.DOUGHNUT, pointValue, rawX, rawY, pointRadius);
+                            drawPoint(canvas, ValueShape.DOUGHNUT, pointValue, rawX, rawY, pointRadius, line.isUsePointShadow());
                         }
                     } else {
-                        drawPoint(canvas, line.getShape(), pointValue, rawX, rawY, pointRadius);
+                        drawPoint(canvas, line.getShape(), pointValue, rawX, rawY, pointRadius, line.isUsePointShadow());
                     }
 
                     if (line.hasLabels() || line.hasLabelOnlyLastPoint() && i == last) {
@@ -420,7 +421,7 @@ public class LineChartRenderer extends AbstractChartRenderer {
     }
 
     private void drawPoint(Canvas canvas, ValueShape shape, PointValue pointValue, float rawX, float rawY,
-                           float pointRadius) {
+                           float pointRadius, boolean useShadow) {
         if (ValueShape.SQUARE.equals(shape)) {
             canvas.drawRect(rawX - pointRadius, rawY - pointRadius, rawX + pointRadius, rawY + pointRadius,
                     pointPaint);
@@ -429,9 +430,14 @@ public class LineChartRenderer extends AbstractChartRenderer {
         } else if (ValueShape.DOUGHNUT.equals(shape)) {
             Paint centerColor = new Paint();
             centerColor.setColor(Color.parseColor("#FFFFFF"));
+            if (useShadow) {
+                Paint shadowColor = new Paint();
+                shadowColor.setColor(Color.parseColor("#0c000000"));
+                canvas.drawCircle(rawX, rawY, pointRadius * 1.7f, shadowColor);
+            }
             canvas.drawCircle(rawX, rawY, pointRadius * 1.5f, pointPaint);
             canvas.drawCircle(rawX, rawY, pointRadius * 0.7f, centerColor);
-        }else if (ValueShape.DIAMOND.equals(shape)) {
+        } else if (ValueShape.DIAMOND.equals(shape)) {
             canvas.save();
             canvas.rotate(45, rawX, rawY);
             canvas.drawRect(rawX - pointRadius, rawY - pointRadius, rawX + pointRadius, rawY + pointRadius,
@@ -453,7 +459,7 @@ public class LineChartRenderer extends AbstractChartRenderer {
         if (selectedValue.getFirstIndex() == lineIndex && selectedValue.getSecondIndex() == valueIndex) {
             int pointRadius = ChartUtils.dp2px(density, line.getPointRadius());
             pointPaint.setColor(line.getDarkenColor());
-            drawPoint(canvas, line.getShape(), pointValue, rawX, rawY, pointRadius + touchToleranceMargin);
+            drawPoint(canvas, line.getShape(), pointValue, rawX, rawY, pointRadius + touchToleranceMargin, line.isUsePointShadow());
             if (line.hasLabels() || line.hasLabelsOnlyForSelected()) {
                 drawLabel(canvas, line, pointValue, rawX, rawY, pointRadius + labelOffset);
             }
@@ -554,8 +560,17 @@ public class LineChartRenderer extends AbstractChartRenderer {
         path.close();
 
         linePaint.setStyle(Paint.Style.FILL);
-//        linePaint.setAlpha(line.getAreaTransparency());
-        linePaint.setShader(new LinearGradient(0, 0, 0, contentRect.bottom, linePaint.getColor(), (linePaint.getColor() & 0x00FFFFFF) | 0x01000000, Shader.TileMode.REPEAT));
+
+        if (line.isGradient()) {
+            if (line.getGradientOrientation() == GradientDrawable.Orientation.TOP_BOTTOM) {
+                linePaint.setShader(new LinearGradient(0, 0, 0, contentRect.bottom, line.getGradientColors()[0], line.getGradientColors()[1], Shader.TileMode.REPEAT));
+            } else if (line.getGradientOrientation() == GradientDrawable.Orientation.RIGHT_LEFT) {
+                linePaint.setShader(new LinearGradient(contentRect.left, 0, 0, 0, line.getGradientColors()[0], line.getGradientColors()[1], Shader.TileMode.REPEAT));
+            }
+        } else {
+            linePaint.setAlpha(line.getAreaTransparency());
+        }
+
         canvas.drawPath(path, linePaint);
     }
 

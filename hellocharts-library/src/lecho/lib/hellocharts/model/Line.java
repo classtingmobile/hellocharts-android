@@ -1,6 +1,8 @@
 package lecho.lib.hellocharts.model;
 
 import android.graphics.PathEffect;
+import android.graphics.drawable.GradientDrawable;
+import android.view.Gravity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,8 @@ public class Line {
     private int pointColor = UNINITIALIZED;
     private int darkenColor = ChartUtils.DEFAULT_DARKEN_COLOR;
     private int labelColor = UNINITIALIZED;
+    private GradientDrawable.Orientation gradientOrientation = GradientDrawable.Orientation.RIGHT_LEFT;
+    private int[] gradientColors = new int[2];
     /**
      * Transparency of area when line is filled. *
      */
@@ -43,6 +47,8 @@ public class Line {
     private PathEffect pathEffect;
     private LineChartValueFormatter formatter = new SimpleLineChartValueFormatter();
     private List<PointValue> values = new ArrayList<PointValue>();
+    private boolean isGradient = true;
+    private boolean usePointShadow = false;
 
     public Line() {
 
@@ -71,6 +77,10 @@ public class Line {
         this.shape = line.shape;
         this.pathEffect = line.pathEffect;
         this.formatter = line.formatter;
+        this.isGradient = line.isGradient;
+        this.gradientOrientation = line.getGradientOrientation();
+        this.gradientColors = line.gradientColors;
+        this.usePointShadow = line.usePointShadow;
 
         for (PointValue pointValue : line.values) {
             this.values.add(new PointValue(pointValue));
@@ -260,6 +270,14 @@ public class Line {
         return this;
     }
 
+    public boolean isUsePointShadow() {
+        return isUsePointShadow();
+    }
+
+    public void setUsePointShadow(boolean usePointShadow) {
+        this.usePointShadow = usePointShadow;
+    }
+
     public boolean isCubic() {
         return isCubic;
     }
@@ -303,6 +321,30 @@ public class Line {
     public Line setUseLastCustomPoint(boolean isUseLastPoint) {
         this.isUseLastPoint = isUseLastPoint;
         return this;
+    }
+
+    public boolean isGradient() {
+        return isGradient;
+    }
+
+    public void setGradient(boolean gradient) {
+        isGradient = gradient;
+    }
+
+    public GradientDrawable.Orientation getGradientOrientation() {
+        return gradientOrientation;
+    }
+
+    public void setGradientOrientation(GradientDrawable.Orientation gradientOrientation) {
+        this.gradientOrientation = gradientOrientation;
+    }
+
+    public int[] getGradientColors() {
+        return gradientColors;
+    }
+
+    public void setGradientColors(int[] gradientColors) {
+        this.gradientColors = gradientColors;
     }
 
     /**

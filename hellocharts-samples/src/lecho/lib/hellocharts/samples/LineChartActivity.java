@@ -51,8 +51,8 @@ public class LineChartActivity extends ActionBarActivity {
 
         float[][] randomNumbersTab = new float[maxNumberOfLines][numberOfPoints];
 
-        private boolean hasAxes = true;
-        private boolean hasAxesNames = true;
+        private boolean hasAxes = false;
+        private boolean hasAxesNames = false;
         private boolean hasLines = true;
         private boolean hasPoints = true;
         private ValueShape shape = ValueShape.CIRCLE;
@@ -192,8 +192,8 @@ public class LineChartActivity extends ActionBarActivity {
         private void reset() {
             numberOfLines = 1;
 
-            hasAxes = true;
-            hasAxesNames = true;
+            hasAxes = false;
+            hasAxesNames = false;
             hasLines = true;
             hasPoints = true;
             shape = ValueShape.CIRCLE;
