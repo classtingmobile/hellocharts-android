@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 //apply plugin: 'maven-publish'
 //apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
-apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.classtingmobile'
 
@@ -50,6 +49,7 @@ android {
         abortOnError false
     }
 
+    buildToolsVersion '25.0.0'
 }
 
 //Execute "gradle clean jarRelease" to cook jar.
