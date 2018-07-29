@@ -271,11 +271,12 @@ public class Line {
     }
 
     public boolean isUsePointShadow() {
-        return isUsePointShadow();
+        return usePointShadow;
     }
 
-    public void setUsePointShadow(boolean usePointShadow) {
+    public Line setUsePointShadow(boolean usePointShadow) {
         this.usePointShadow = usePointShadow;
+        return this;
     }
 
     public boolean isCubic() {
@@ -327,24 +328,27 @@ public class Line {
         return isGradient;
     }
 
-    public void setGradient(boolean gradient) {
+    public Line setGradient(boolean gradient) {
         isGradient = gradient;
+        return this;
     }
 
     public GradientDrawable.Orientation getGradientOrientation() {
         return gradientOrientation;
     }
 
-    public void setGradientOrientation(GradientDrawable.Orientation gradientOrientation) {
+    public Line setGradientOrientation(GradientDrawable.Orientation gradientOrientation) {
         this.gradientOrientation = gradientOrientation;
+        return this;
     }
 
     public int[] getGradientColors() {
         return gradientColors;
     }
 
-    public void setGradientColors(int[] gradientColors) {
+    public Line setGradientColors(int[] gradientColors) {
         this.gradientColors = gradientColors;
+        return this;
     }
 
     /**
