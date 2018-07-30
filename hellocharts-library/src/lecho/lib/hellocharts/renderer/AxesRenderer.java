@@ -9,6 +9,7 @@ import android.graphics.Paint.FontMetricsInt;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.text.TextUtils;
+import android.util.Log;
 
 import lecho.lib.hellocharts.computator.ChartComputator;
 import lecho.lib.hellocharts.model.Axis;
@@ -440,6 +441,7 @@ public class AxesRenderer {
         for (AxisValue axisValue : axis.getValues()) {
             // Draw axis values that are within visible viewport.
             final float value = axisValue.getValue();
+
             if (value >= viewportMin && value <= viewportMax) {
                 // Draw axis values that have 0 module value, this will hide some labels if there is no place for them.
                 if (0 == valueIndex % module) {
@@ -600,24 +602,27 @@ public class AxesRenderer {
             }
 
             if (axis.hasTiltedLabels()) {
+                Paint paint = labelPaintTab[position];
                 if (valueToDrawIndex == valuesToDrawNumTab[position] - 1) {
-                    Paint paint = labelPaintTab[position];
-                    paint.setColor(Color.parseColor("#757575"));
-                    canvas.drawText(labelBuffer, labelBuffer.length - charsNumber, charsNumber, labelX, labelY,
-                            labelPaintTab[position]);
+                    paint.setColor(axis.getCurrentValueTextColor());
                 } else {
-                    Paint paint = labelPaintTab[position];
-                    paint.setColor(Color.parseColor("#9E9E9E"));
-                    canvas.drawText(labelBuffer, labelBuffer.length - charsNumber, charsNumber, labelX, labelY,
-                            labelPaintTab[position]);
+                    paint.setColor(axis.getValueTextColor());
                 }
+                canvas.drawText(labelBuffer, labelBuffer.length - charsNumber, charsNumber, labelX, labelY,
+                        labelPaintTab[position]);
             } else {
                 AxisValue axisValue = valuesToDrawTab[position][valueToDrawIndex];
-                Paint paint = labelPaintTab[position];
-                paint.setColor(Color.parseColor("#BDBDBD"));
-                if (valueToDrawIndex < valuesToDrawNumTab[position] - 1) {
+                if (axis.isVisibleLastLabel() || (!axis.isVisibleLastLabel() && valueToDrawIndex < valuesToDrawNumTab[position] - 1)) {
+
+                    Paint paint = labelPaintTab[position];
+                    if (valueToDrawIndex == valuesToDrawNumTab[position] - 1) {
+                        paint.setColor(axis.getCurrentValueTextColor());
+                    } else {
+                        paint.setColor(axis.getValueTextColor());
+                    }
+
                     String value = String.valueOf((int) axisValue.getOriginal());
-                    canvas.drawText(value.toCharArray(), 0, value.toCharArray().length, labelX, labelY - 44,
+                    canvas.drawText(value.toCharArray(), 0, value.toCharArray().length, labelX, labelY - axis.getLabelYOffset(),
                             labelPaintTab[position]);
                 }
             }

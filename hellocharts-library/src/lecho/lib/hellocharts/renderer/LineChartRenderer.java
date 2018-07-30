@@ -432,8 +432,16 @@ public class LineChartRenderer extends AbstractChartRenderer {
             centerColor.setColor(Color.parseColor("#FFFFFF"));
             if (useShadow) {
                 Paint shadowColor = new Paint();
-                shadowColor.setColor(Color.parseColor("#0c000000"));
-                canvas.drawCircle(rawX, rawY, pointRadius * 1.7f, shadowColor);
+                shadowColor.setColor(Color.parseColor("#05000000"));
+                canvas.drawCircle(rawX + 2, rawY + 4, pointRadius * 2.2f, shadowColor);
+
+                Paint shadowColor1 = new Paint();
+                shadowColor1.setColor(Color.parseColor("#05000000"));
+                canvas.drawCircle(rawX + 2, rawY + 4, pointRadius * 2.0f, shadowColor1);
+
+                Paint shadowColor2 = new Paint();
+                shadowColor2.setColor(Color.parseColor("#0D000000"));
+                canvas.drawCircle(rawX + 2, rawY + 4, pointRadius * 1.8f, shadowColor2);
             }
             canvas.drawCircle(rawX, rawY, pointRadius * 1.5f, pointPaint);
             canvas.drawCircle(rawX, rawY, pointRadius * 0.7f, centerColor);
@@ -526,6 +534,22 @@ public class LineChartRenderer extends AbstractChartRenderer {
 
             canvas.drawRoundRect(labelBackgroundRect, 10, 10, labelBackgroundPaint);
 
+            Path pointer = new Path();
+            pointer.setFillType(Path.FillType.EVEN_ODD);
+
+            // Set the starting point
+            float pointerWidth = labelBackgroundRect.width() / 5;
+            float pointerHeight = pointerWidth / 2;
+            pointer.moveTo((labelBackgroundRect.right) - (pointerWidth / 2) - labelBackgroundRect.width() / 2, labelBackgroundRect.top);
+
+            // Define the lines
+            pointer.rLineTo(pointerWidth, 0);
+            pointer.rLineTo(-(pointerWidth / 2), -pointerHeight);
+            pointer.rLineTo(-(pointerWidth / 2), pointerHeight);
+            pointer.close();
+
+            canvas.drawPath(pointer, labelBackgroundPaint);
+
             textX = labelBackgroundRect.left + labelMargin;
             textY = labelBackgroundRect.bottom - labelMargin;
         } else {
@@ -565,7 +589,7 @@ public class LineChartRenderer extends AbstractChartRenderer {
             if (line.getGradientOrientation() == GradientDrawable.Orientation.TOP_BOTTOM) {
                 linePaint.setShader(new LinearGradient(0, 0, 0, contentRect.bottom, line.getGradientColors()[0], line.getGradientColors()[1], Shader.TileMode.REPEAT));
             } else if (line.getGradientOrientation() == GradientDrawable.Orientation.RIGHT_LEFT) {
-                linePaint.setShader(new LinearGradient(contentRect.left, 0, 0, 0, line.getGradientColors()[0], line.getGradientColors()[1], Shader.TileMode.REPEAT));
+                linePaint.setShader(new LinearGradient(line.getChartWidth(), 0, 0, 0, line.getGradientColors()[0], line.getGradientColors()[1], Shader.TileMode.REPEAT));
             }
         } else {
             linePaint.setAlpha(line.getAreaTransparency());

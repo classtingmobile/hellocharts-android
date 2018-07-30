@@ -2,6 +2,7 @@ package lecho.lib.hellocharts.model;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,10 @@ public class Axis {
      * Axis labels and name text color.
      */
     private int textColor = Color.LTGRAY;
+
+    private int valueTextColor = Color.BLACK;
+
+    private int currentValueTextColor = Color.BLACK;
     /**
      * Axis grid lines color.
      */
@@ -77,6 +82,10 @@ public class Axis {
     private boolean hasSeparationLine = true;
 
     private boolean hasTiltedLabels = false;
+
+    private boolean isVisibleLastLabel = false;
+
+    private float labelYOffset = 0;
 
     /**
      * Creates auto-generated axis without name and with default formatter.
@@ -104,6 +113,8 @@ public class Axis {
         this.typeface = axis.typeface;
         this.formatter = axis.formatter;
         this.hasSeparationLine = axis.hasSeparationLine;
+        this.isVisibleLastLabel = axis.isVisibleLastLabel;
+        this.labelYOffset = axis.labelYOffset;
 
         for (AxisValue axisValue : axis.values) {
             this.values.add(new AxisValue(axisValue));
@@ -166,6 +177,10 @@ public class Axis {
     }
 
     public Axis setValues(List<AxisValue> values) {
+        Log.e("classting", "setValues : " + values.size());
+        for (AxisValue value : values) {
+            Log.e("classting", "setValues1 : " + String.valueOf(value.getLabel()));
+        }
         if (null == values) {
             this.values = new ArrayList<AxisValue>();
         } else {
@@ -203,12 +218,39 @@ public class Axis {
         return this;
     }
 
+    public float getLabelYOffset() {
+        return labelYOffset;
+    }
+
+    public Axis setLabelYOffset(float offset) {
+        this.labelYOffset = offset;
+        return this;
+    }
+
     public int getTextColor() {
         return textColor;
     }
 
     public Axis setTextColor(int color) {
         this.textColor = color;
+        return this;
+    }
+
+    public int getValueTextColor() {
+        return this.valueTextColor;
+    }
+
+    public Axis setValueTextColor(int color) {
+        this.valueTextColor = color;
+        return this;
+    }
+
+    public int getCurrentValueTextColor() {
+        return this.currentValueTextColor;
+    }
+
+    public Axis setCurrentValueTextColor(int color) {
+        this.currentValueTextColor = color;
         return this;
     }
 
@@ -237,6 +279,15 @@ public class Axis {
         return this;
     }
 
+    public boolean isVisibleLastLabel() {
+        return isVisibleLastLabel;
+    }
+
+    public Axis setVisibleLastLabel(boolean visible) {
+        this.isVisibleLastLabel = visible;
+        return this;
+    }
+
     public int getLineWidth() {
         return lineWidth;
     }
@@ -254,6 +305,8 @@ public class Axis {
         this.textSize = textSize;
         return this;
     }
+
+
 
     public int getMaxLabelChars() {
         return maxLabelChars;

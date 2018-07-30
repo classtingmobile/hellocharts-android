@@ -49,6 +49,7 @@ public class Line {
     private List<PointValue> values = new ArrayList<PointValue>();
     private boolean isGradient = true;
     private boolean usePointShadow = false;
+    private float chartWidth = 0;
 
     public Line() {
 
@@ -81,6 +82,7 @@ public class Line {
         this.gradientOrientation = line.getGradientOrientation();
         this.gradientColors = line.gradientColors;
         this.usePointShadow = line.usePointShadow;
+        this.chartWidth = line.chartWidth;
 
         for (PointValue pointValue : line.values) {
             this.values.add(new PointValue(pointValue));
@@ -109,6 +111,15 @@ public class Line {
         } else {
             this.values = values;
         }
+    }
+
+    public float getChartWidth() {
+        return chartWidth;
+    }
+
+    public Line setChartWidth(float width) {
+        this.chartWidth = width;
+        return this;
     }
 
     public int getColor() {
